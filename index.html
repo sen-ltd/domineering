@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Domineering — play a perfect player, and every m×n board up to 52 cells solved</title>
+    <meta
+      name="description"
+      content="Domineering (Stop-Gate, Crosscram) in the browser. One player places vertical dominoes, the other horizontal ones; whoever cannot move loses. A perfect player marks every legal move as winning or losing, and the outcome of every m×n board up to 52 cells is recomputed and checked against Nathan Bullock's chart."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23151412'/%3E%3Crect x='5' y='5' width='9' height='22' rx='2.5' fill='%235cc8d6'/%3E%3Crect x='17' y='5' width='10' height='9' rx='2.5' fill='%23e8a15a'/%3E%3Crect x='17' y='18' width='10' height='9' rx='2.5' fill='%23e8a15a'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Domineering <span>Stop-Gate</span></h1>
+        <p class="sub">
+          Take turns placing dominoes on the grid: <strong class="v">V</strong> lays them
+          <strong>vertically</strong>, <strong class="h">H</strong> <strong>horizontally</strong>. Whoever cannot
+          place a domino on their turn <strong>loses</strong>. The computer plays perfectly, and with hints on every
+          move you could make carries a dot: <strong class="win-t">green</strong> keeps a won game won,
+          <strong class="lose-t">red</strong> hands the win to the other side.
+        </p>
+      </header>
+
+      <div id="wrap">
+        <div class="stage">
+          <div class="controls">
+            <label class="sel">rows <select id="rowsSel"></select></label>
+            <label class="sel">cols <select id="colsSel"></select></label>
+            <label class="sel">you play
+              <select id="youSel">
+                <option value="v">V (vertical)</option>
+                <option value="h">H (horizontal)</option>
+              </select>
+            </label>
+            <label class="sel">first move
+              <select id="firstSel">
+                <option value="v">V</option>
+                <option value="h">H</option>
+              </select>
+            </label>
+            <label class="sel chk"><input type="checkbox" id="hints" checked /> hints</label>
+            <button id="undo">Undo</button>
+            <button id="newgame" class="primary">New game</button>
+          </div>
+          <div id="boardwrap"><svg id="board" role="img" aria-label="Domineering board"></svg></div>
+          <div id="status" aria-live="polite"></div>
+        </div>
+        <div class="side">
+          <h3>this position</h3>
+          <div class="panel" id="position"></div>
+          <h3>who wins the empty m × n board</h3>
+          <div class="panel" id="chart"></div>
+        </div>
+      </div>
+
+      <section class="notes">
+        <h2>How the perfect player works</h2>
+        <p>
+          The solver answers one question exactly: <em>does the side to move win?</em> It is a plain depth-first
+          search — a position is won if some move leads to a position that is lost for the opponent — with three
+          additions. The board is stored twice, as bitmasks of rows and of columns, so a horizontal move is two
+          adjacent free bits in a row and a vertical one is two adjacent free bits in a column, and both players
+          run the same code with the two arrays swapped. Positions are remembered in a transposition table keyed by
+          the smallest of the board's four mirror images. And before searching, every position is tested with the
+          <strong>safe-move bound</strong>.
+        </p>
+        <p>
+          A safe move is a free pair of cells the opponent can never touch: for V, two stacked cells whose left and
+          right neighbours are both filled (or off the board). Nothing the opponent does can take it away. So if the
+          side to move has more safe moves than the opponent could ever make in total (each run of <em>k</em> free
+          cells in the opponent's direction holds at most ⌊<em>k</em>/2⌋ dominoes), it wins without search; if the
+          opponent's safe moves can answer every move the side to move could still make, it loses. The panel on the
+          right shows both numbers for the current position.
+        </p>
+        <h2>The chart</h2>
+        <p>
+          Whoever moves first, H moving first on an m × n board is the same game as V moving first on the
+          transposed n × m board. So the whole chart needs only one search per board shape: "does V win moving
+          first on m × n?" for every m × n with at most 52 cells, run natively under Node with a node budget. Each
+          cell combines two of those runs into V (vertical wins whoever starts), H, 1 (first player wins) or 2
+          (second player wins). The same symmetry has to hold in Nathan Bullock's published chart, and it does —
+          the tests check all 121 pairs, then check every solved cell here against his value.
+        </p>
+      </section>
+
+      <footer>
+        <p>
+          Built by <a href="https://sen.ltd/">SEN LLC</a>. TypeScript, no runtime
+          dependencies. <a href="https://github.com/sen-ltd/domineering">Source</a>.
+        </p>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "domineering",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Domineering (Stop-Gate / Crosscram) in the browser against a perfect player, with every legal move marked as winning or losing, and the outcome of every m×n board up to 52 cells recomputed against Bullock's chart. TypeScript, no runtime deps.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --port 4173",
+    "test": "vitest run",
+    "table": "node tools/run-jobs.mts runs/jobs-table.txt runs/table.jsonl 8 && node tools/build-table.mts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.5"
+  },
+  "license": "MIT"
+}

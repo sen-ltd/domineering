@@ -1,0 +1,93 @@
+:root {
+  --bg: #151412;
+  --panel: #1f1d1a;
+  --panel-2: #2a2723;
+  --ink: #efe9df;
+  --dim: #a39a8c;
+  --line: #3b3630;
+  --v: #5cc8d6;
+  --h: #e8a15a;
+  --gold: #f3d49b;
+  --good: #7ddf9a;
+  --bad: #ef6b7b;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+body {
+  font: 15px/1.6 ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Hiragino Sans', sans-serif;
+}
+main { max-width: 1180px; margin: 0 auto; padding: 32px 24px 48px; }
+h1 { font-size: 34px; margin: 0 0 8px; letter-spacing: -0.01em; }
+h1 span { color: var(--h); font-weight: 600; margin-left: 6px; }
+.sub { color: var(--dim); max-width: 78ch; margin: 0 0 24px; }
+.sub strong { color: var(--ink); font-weight: 600; }
+strong.v { color: var(--v); }
+strong.h { color: var(--h); }
+.win-t { color: var(--good); }
+.lose-t { color: var(--bad); }
+#wrap { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; }
+.stage { flex: 1 1 460px; min-width: 0; }
+.side { flex: 0 1 470px; min-width: 300px; }
+h3 {
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--dim); font-weight: 600; margin: 0 0 10px;
+}
+.controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+.sel { color: var(--dim); font-size: 13px; display: inline-flex; gap: 6px; align-items: center; }
+.chk { cursor: pointer; }
+select, button {
+  font: inherit; font-size: 13px; color: var(--ink); background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: 8px; padding: 5px 10px; cursor: pointer;
+}
+button:hover, select:hover { border-color: var(--dim); }
+button.primary { background: var(--h); color: #1a120a; border-color: var(--h); font-weight: 600; }
+#boardwrap {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px; max-width: 490px;
+}
+#board { width: 100%; height: auto; display: block; user-select: none; max-height: 70vh; }
+#board .frame { fill: #0e0d0c; stroke: #4a4238; stroke-width: 2; }
+#board .cell { fill: #2b2824; }
+#board .domino { stroke: rgba(0, 0, 0, 0.5); stroke-width: 2; }
+#board .domino.v { fill: var(--v); }
+#board .domino.h { fill: var(--h); }
+#board .domino.last { stroke: #fff; stroke-width: 3; }
+#board .ghost { fill: none; stroke-width: 3; stroke-dasharray: 7 5; pointer-events: none; }
+#board .ghost.v { stroke: var(--v); }
+#board .ghost.h { stroke: var(--h); }
+#board .mark { stroke: #0e0d0c; stroke-width: 2.5; pointer-events: none; }
+#board .mark.win { fill: var(--good); }
+#board .mark.lose { fill: var(--bad); }
+#board .mark.unk { fill: #6d655a; }
+#status { min-height: 26px; margin-top: 10px; color: var(--dim); }
+#status.good { color: var(--good); }
+#status.bad { color: var(--bad); }
+.panel {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 16px; margin-bottom: 18px;
+}
+.panel dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; margin: 0 0 10px; }
+.panel dt { color: var(--dim); font-size: 13px; }
+.panel dd { margin: 0; font-variant-numeric: tabular-nums; }
+.fine { color: var(--dim); font-size: 12.5px; margin: 8px 0 0; }
+table.bound { border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+table.bound th { color: var(--dim); font-weight: 500; padding: 2px 12px 2px 0; text-align: left; }
+table.bound td { padding: 2px 12px 2px 0; }
+table.chart { border-collapse: separate; border-spacing: 2px; font-size: 11px; font-variant-numeric: tabular-nums; }
+table.chart th { color: var(--dim); font-weight: 500; width: 22px; }
+table.chart td {
+  width: 22px; height: 20px; text-align: center; border-radius: 4px; color: #14110d; font-weight: 700;
+}
+table.chart td.oV { background: var(--v); }
+table.chart td.oH { background: var(--h); }
+table.chart td.o1 { background: var(--gold); }
+table.chart td.o2 { background: #8d857a; }
+table.chart td.open { background: var(--panel-2); color: var(--dim); }
+table.chart td.out { background: transparent; }
+table.chart td.pick { cursor: pointer; }
+table.chart td.here { outline: 2px solid #fff; }
+.notes { max-width: 78ch; margin-top: 36px; color: var(--dim); }
+.notes h2 { color: var(--ink); font-size: 19px; margin: 26px 0 8px; }
+.notes strong { color: var(--ink); }
+footer { margin-top: 40px; color: var(--dim); font-size: 13px; }
+footer a, .notes a { color: var(--v); }
