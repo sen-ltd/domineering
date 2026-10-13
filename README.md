@@ -120,3 +120,10 @@ URL parameters: `r`, `c` (board size), `you=v|h`, `first=v|h`, `hints=0`, and `m
 ## License
 
 MIT. Built by [SEN LLC](https://sen.ltd/).
+
+<!-- sen-publish:links -->
+## Links
+
+- 🌐 Demo: https://sen.ltd/portfolio/domineering/
+- 📝 記事: https://qiita.com/sen-ltd/items/d25872b1efdfd6fb5240
+<!-- /sen-publish:links -->
